@@ -6,5 +6,6 @@ import com.jump.plus.model.User;
 
 public interface UserDAO {
 
-	List<User> getUserList();
+	public List<User> getUserList();
+	public User getUserByName(String username);
 }
