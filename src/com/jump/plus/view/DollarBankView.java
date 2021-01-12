@@ -6,12 +6,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.Ansi.Color;
+
+import com.jump.plus.model.Account;
 
 public class DollarBankView {
 
@@ -48,8 +49,31 @@ public class DollarBankView {
 		  .forEach(index -> 
 		  System.out.println(Ansi.ansi().eraseScreen().
 				  fg(Color.WHITE).a((index + 1) + ". " + selections[index])));
-		System.out.println(Ansi.ansi().eraseScreen().fg(Color.GREEN).a("\nEnter Choise: 0 ~ 3\n"));
-		
+		System.out.println(Ansi.ansi().eraseScreen().
+				fg(Color.GREEN).a("\nEnter Choise: 1 ~ " + selections.length + "\n"));
+	}
+	
+	public void displayAccounstList(List<Account> accounts) {
+		if (accounts.size() == 0) {
+			System.out.println(Ansi.ansi().eraseScreen().
+				fg(Color.MAGENTA).a("Account List is Empty"));
+			return ;
+		} else {
+
+		}
+	}
+	
+	public void displayTitle(String title) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("+");
+		IntStream.range(0, title.length()).forEachOrdered(index-> sb.append("-"));
+		sb.append("------+\n");
+		sb.append("|   " + title + "   |\n");
+		sb.append("+");
+		IntStream.range(0, title.length()).forEachOrdered(index-> sb.append("-"));
+		sb.append("------+\n");
+		System.out.println(Ansi.ansi().eraseScreen().
+				fg(Color.MAGENTA).a(sb.toString()));
 	}
 	
 	public void displayIllegalWarning() {

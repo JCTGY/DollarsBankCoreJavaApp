@@ -18,6 +18,14 @@ public class UserController {
 		this.userDAO = new UserDAOImp();
 	}
 	
+	public User getCurrentUser() {
+		return user;
+	}
+	
+	public boolean isLogin() {
+		return user != null;
+	}
+	
 	public boolean login(String username, String password) {
 		user = userDAO.getUserByName(username);
 		if (user == null || !user.getPassword().equals(password)) 
