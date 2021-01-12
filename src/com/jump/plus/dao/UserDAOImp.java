@@ -68,4 +68,25 @@ public class UserDAOImp implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public User addNewUser(User user) {
+		
+		final String statement = "INSERT INTO user "
+				+ "(user_id, username, password, first_name, last_name, email, create_date, modify_date)"
+				+ "VALUES" 
+				+ "(null, ?, ?, ?, ?, ?, NOW(), NOW());";
+		try (PreparedStatement pr = conn.prepareStatement(statement)) {
+			pr.setString(1, user.getUsername());
+			pr.setString(2, user.getPassword());
+			pr.setString(3, user.getFirstName());
+			pr.setString(4, user.getLastName());
+			pr.setString(5, user.getEmail());
+			if (pr.executeUpdate() == 1) {
+				return getUserByName(user.getUsername());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
