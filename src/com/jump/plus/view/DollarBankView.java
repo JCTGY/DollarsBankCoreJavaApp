@@ -13,6 +13,7 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.Ansi.Color;
 
 import com.jump.plus.model.Account;
+import com.jump.plus.model.User;
 
 public class DollarBankView {
 
@@ -53,13 +54,22 @@ public class DollarBankView {
 				fg(Color.GREEN).a("\nEnter Choise: 1 ~ " + selections.length + "\n"));
 	}
 	
+	public void displayUserDetail(User user) {
+		displayTitle("Hello " + user.getFirstName() + "!");
+		
+	}
+	
 	public void displayAccounstList(List<Account> accounts) {
 		if (accounts.size() == 0) {
 			System.out.println(Ansi.ansi().eraseScreen().
 				fg(Color.MAGENTA).a("Account List is Empty"));
 			return ;
 		} else {
-
+			displayTitle("Account List");
+			String[] selections = accounts.stream().map(a -> {
+				return "Account Id: " + a.getId() + " Type: " + a.getType();
+			}).toArray(String[]::new);
+			displaySelections(selections);
 		}
 	}
 	

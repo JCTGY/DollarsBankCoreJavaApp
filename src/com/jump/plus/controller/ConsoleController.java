@@ -1,6 +1,7 @@
 package com.jump.plus.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,6 +32,7 @@ public class ConsoleController {
 
 		while (true) {
 
+			dbView.displayTitle("Welcome To DollarBank");
 			dbView.displaySelections(MainMenu.selections);
 			String[] inputValue = null;
 			try {
@@ -41,6 +43,7 @@ public class ConsoleController {
 								ansi().eraseScreen().fg(Color.MAGENTA).a("Goodbye, See you next time").reset());
 						System.exit(0);
 					} else if (message == MainMenu.LOGIN) {
+						dbView.displayTitle("Login");
 						inputValue = inputLogin();
 						if (inputValue != null && userController.login(inputValue[0], inputValue[1])) {
 							inputValue = null;
@@ -50,6 +53,7 @@ public class ConsoleController {
 						userController.logout();
 						System.out.println(ansi().eraseScreen().fg(Color.MAGENTA).a("User logout").reset());
 					} else if (message == MainMenu.CREATE_NEW_USER) {
+						dbView.displayTitle("Create New User");
 						userController.createNewUser(inputUserInfos());
 						userMenuInterface();
 					}
@@ -69,7 +73,7 @@ public class ConsoleController {
 		String[] loginValue = new String[2];
 		String message = null;
 
-		System.out.println(ansi().eraseScreen().fg(Color.WHITE).a("Enter BACK to go back to Main View").reset());
+		System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
 		System.out.println(ansi().eraseScreen().fg(Color.GREEN).a("Enter Username: ").reset());
 		while (true) {
 			if (loginValue[0] == null && message != null) {
@@ -86,6 +90,11 @@ public class ConsoleController {
 
 		}
 	}
+	
+	/*
+	 * After user login or create new account, they will be in the user menu where they can do all the 
+	 * management of their accounts and user data
+	 */
 
 	private void userMenuInterface() {
 		User user = userController.getCurrentUser();
@@ -94,6 +103,7 @@ public class ConsoleController {
 		while (true) {
 			if (!userController.isLogin())
 				break;
+			dbView.displayUserDetail(user);
 			dbView.displaySelections(UserMenu.selections);
 			try {
 				int message = Integer.parseInt(scanner.next());
@@ -119,7 +129,7 @@ public class ConsoleController {
 						}
 						break ;
 					case UserMenu.ACCOUNTS_LIST:
-						dbView.displayTitle("Account List");
+						accountSelctionInterface();
 						break ;
 					default:
 						dbView.displayIllegalWarning();
@@ -129,6 +139,38 @@ public class ConsoleController {
 				dbView.displayIllegalWarning();
 			}
 		}
+	}
+	
+	/*
+	 * Menu for displaying and selecting different accounts
+	 */
+	private void accountSelctionInterface() {
+		User user = userController.getCurrentUser();
+		if (user == null)
+			return;
+		List<Account> accounts = accountController.getAccountsByUserId(user.getId());
+		while (true) {
+			dbView.displayAccounstList(accounts);
+			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
+			String message = scanner.next();
+			if (message.equalsIgnoreCase(MainMenu.BACK))
+				return ;
+			try {
+			int acountNumber = Integer.parseInt(message);
+			accountMenuInterface(accounts.get(acountNumber - 1));
+			
+			} catch (NumberFormatException e) {
+				dbView.displayIllegalWarning();
+			}
+		}
+	}
+	
+	/*
+	 * Account details, make deposit, withdraw, and transfer
+	 */
+	
+	private void accountMenuInterface(Account account) {
+		System.out.println(account);
 	}
 
 	/*

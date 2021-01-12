@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,10 @@ public class AccountDAOImp implements AccountDAO {
 				int userId = rs.getInt("user_id");
 				double balance = rs.getDouble("balance");
 				String type = rs.getString("type");
+				Timestamp createTime = rs.getTimestamp("create_date");
+				Timestamp modifyDate = rs.getTimestamp("modify_date");
 				
-				Account account = new Account(accountId, userId, balance, type, null, null);
+				Account account = new Account(accountId, userId, balance, type, modifyDate, createTime);
 				return account;
 			}
 		} catch (SQLException e) {
@@ -69,8 +72,10 @@ public class AccountDAOImp implements AccountDAO {
 				int userId = rs.getInt("user_id");
 				double balance = rs.getDouble("balance");
 				String type = rs.getString("type");
+				Timestamp createTime = rs.getTimestamp("create_date");
+				Timestamp modifyDate = rs.getTimestamp("modify_date");
 				
-				Account account = new Account(accountId, userId, balance, type, null, null);
+				Account account = new Account(accountId, userId, balance, type, modifyDate, createTime);
 				accounts.add(account);
 			}
 		} catch (SQLException e) {

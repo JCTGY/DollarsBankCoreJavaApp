@@ -7,6 +7,7 @@ public class MainMenu {
 	public static final int LOGOUT = 3;
 	public static final int EXIT = 4;
 	public static final String BACK = "BACK";
+	public static final String BACK_SLECTION = "Enter BACK to go back to previous View\n";
 	
 	public static final String[] selections = {"Create New User", "Login", "Logout", "Exit"};
 }
