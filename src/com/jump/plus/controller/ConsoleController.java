@@ -1,5 +1,6 @@
 package com.jump.plus.controller;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,8 +150,8 @@ public class ConsoleController {
 		User user = userController.getCurrentUser();
 		if (user == null)
 			return;
-		List<Account> accounts = accountController.getAccountsByUserId(user.getId());
 		while (true) {
+			List<Account> accounts = accountController.getAccountsByUserId(user.getId());
 			dbView.displayAccounstList(accounts);
 			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
 			String message = scanner.next();
@@ -181,7 +182,7 @@ public class ConsoleController {
 			if (message.equalsIgnoreCase(MainMenu.BACK))
 				return ;
 			try {
-				int selectionIndex = Integer.parseInt(scanner.next());
+				int selectionIndex = Integer.parseInt(message);
 				if (selectionIndex > 0 && selectionIndex <= AccountMenu.selections.length) {
 					switch (selectionIndex) {
 					case AccountMenu.EXIT:
@@ -192,14 +193,44 @@ public class ConsoleController {
 					case AccountMenu.LOGOUT:
 						userController.logout();
 						System.out.println(ansi().eraseScreen().fg(Color.MAGENTA).a("User logout").reset());
-						break ;
+						return ;
 					case AccountMenu.DEPOSIT:
+						try {
+							System.out.println(
+									ansi().eraseScreen().fg(Color.GREEN).a("Enter Amount to Deposit: ").reset());						
+							double depositAmount = Double.parseDouble(scanner.next());
+							accountController.deposit(account, doubleToTwoDecimal(depositAmount));
+						} catch (NumberFormatException e) {
+							System.out.println(
+								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
+						}
 						break ;
 					case AccountMenu.FUNDS_TRANSFER:
+						try {
+							System.out.println(
+									ansi().eraseScreen().fg(Color.GREEN).a("Enter Amount to Transfer: ").reset());
+							double transferAmount = Double.parseDouble(scanner.next());
+							System.out.println(
+									ansi().eraseScreen().fg(Color.GREEN).a("Enter AccountId to Transfer: ").reset());
+							int transferAccountId = Integer.parseInt(scanner.next());
+							accountController.transerFunds(account, doubleToTwoDecimal(transferAmount), transferAccountId);				
+						} catch (NumberFormatException e) {
+							System.out.println(
+								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
+						}
 						break ;
 					case AccountMenu.TRANSACTIONS:
 						break ;
 					case AccountMenu.WITHDRAW:
+						try {
+							System.out.println(
+									ansi().eraseScreen().fg(Color.GREEN).a("Enter Amount to Withdraw: ").reset());
+							double withdrawAmount = Double.parseDouble(scanner.next());
+							accountController.withdraw(account, doubleToTwoDecimal(withdrawAmount));							
+						} catch (NumberFormatException e) {
+							System.out.println(
+								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
+						}
 						break ;
 					default:
 						dbView.displayIllegalWarning();
@@ -222,5 +253,13 @@ public class ConsoleController {
 			userInfo.put(s, message);
 		}
 		return userInfo;
+	}
+	
+	/*
+	 * change double to two decimal points
+	 */
+	private double doubleToTwoDecimal(double d) {
+		int truncatedNumberInt = (int)(d * Math.pow(10, 2));
+		return truncatedNumberInt / Math.pow(10, 2);
 	}
 }

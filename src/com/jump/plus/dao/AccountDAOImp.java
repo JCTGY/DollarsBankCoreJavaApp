@@ -85,4 +85,21 @@ public class AccountDAOImp implements AccountDAO {
 		return accounts;
 	}
 
+	@Override
+	public Account updateAccount(Account account) {
+		final String statement = "UPDATE account SET balance = ?, modify_date = NOW() WHERE account_id = ?";
+		
+		try (PreparedStatement pr = conn.prepareStatement(statement)) {
+			pr.setDouble(1, account.getBalance());
+			pr.setInt(2, account.getId());
+			if (pr.executeUpdate() == 1) {
+				return account;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
