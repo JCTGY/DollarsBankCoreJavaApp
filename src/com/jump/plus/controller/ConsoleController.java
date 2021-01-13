@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import static org.fusesource.jansi.Ansi.*;
 
+import com.jump.plus.constant.AccountMenu;
 import com.jump.plus.constant.CreateNewAccountMenu;
 import com.jump.plus.constant.CreateNewUserMenu;
 import com.jump.plus.constant.MainMenu;
@@ -107,7 +108,7 @@ public class ConsoleController {
 			dbView.displaySelections(UserMenu.selections);
 			try {
 				int message = Integer.parseInt(scanner.next());
-				if (message > 0 && message <= MainMenu.selections.length) {
+				if (message > 0 && message <= UserMenu.selections.length) {
 					switch (message) {
 					case UserMenu.EXIT:
 						System.out.println(
@@ -168,9 +169,46 @@ public class ConsoleController {
 	/*
 	 * Account details, make deposit, withdraw, and transfer
 	 */
-	
 	private void accountMenuInterface(Account account) {
-		System.out.println(account);
+		User user = userController.getCurrentUser();
+		if (user == null)
+			return;
+		while (true) {
+			dbView.displayTitle("Account: " + account.getId() + " | " + account.getType());
+			dbView.displaySelections(AccountMenu.selections);
+			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
+			String message = scanner.next();
+			if (message.equalsIgnoreCase(MainMenu.BACK))
+				return ;
+			try {
+				int selectionIndex = Integer.parseInt(scanner.next());
+				if (selectionIndex > 0 && selectionIndex <= AccountMenu.selections.length) {
+					switch (selectionIndex) {
+					case AccountMenu.EXIT:
+						System.out.println(
+								ansi().eraseScreen().fg(Color.MAGENTA).a("Goodbye, See you next time").reset());
+						System.exit(0);
+						break ;
+					case AccountMenu.LOGOUT:
+						userController.logout();
+						System.out.println(ansi().eraseScreen().fg(Color.MAGENTA).a("User logout").reset());
+						break ;
+					case AccountMenu.DEPOSIT:
+						break ;
+					case AccountMenu.FUNDS_TRANSFER:
+						break ;
+					case AccountMenu.TRANSACTIONS:
+						break ;
+					case AccountMenu.WITHDRAW:
+						break ;
+					default:
+						dbView.displayIllegalWarning();
+					}
+				}
+			} catch (NumberFormatException e) {
+				dbView.displayIllegalWarning();
+			}
+		}
 	}
 
 	/*
