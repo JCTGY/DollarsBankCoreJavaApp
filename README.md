@@ -3,15 +3,15 @@
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/Actions.png" width=980>
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/Transactions.png" width=980>
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/CreateExit.png" width=980>
-<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/FileStructure.png" width=450>
-<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/DollarBankApp.png" width=450>
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/FileStructure.png" width=380>
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/DollarBankApp.png" width=380>
 
 * [Objective](#objective)
 * [How to use](#how-to-use)
 * [Bonus](#bonus)
 
 ## Objective
-Objectives ■
+Objectives
 - Use layered architecture (abstracted files under SOLID principles) to make an MVC banking application.
 - Create a user login system (no DB necessary, use in program memory).
 - Once logged in, have a user menu display in console.
