@@ -1,6 +1,6 @@
 # DollarsBankCoreJavaApp
 ![](images/MainMenu.png)
-![](images/LoginToAccount.png){:height="50%" width="50%"}
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/LoginToAccount.png" width=300 align=right>
 ![](images/Actions.png)
 ![](images/Transactions.png)
 ![](images/LogoutExit.png)
