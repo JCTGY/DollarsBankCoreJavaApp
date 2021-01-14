@@ -1,6 +1,6 @@
 package com.jump.plus.controller;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,7 @@ import com.jump.plus.constant.CreateNewUserMenu;
 import com.jump.plus.constant.MainMenu;
 import com.jump.plus.constant.UserMenu;
 import com.jump.plus.model.Account;
+import com.jump.plus.model.Transaction;
 import com.jump.plus.model.User;
 import com.jump.plus.view.ConsoleScanner;
 import com.jump.plus.view.DollarBankView;
@@ -24,6 +25,7 @@ public class ConsoleController {
 	private DollarBankView dbView = new DollarBankView();
 	private UserController userController = new UserController();
 	private AccountController accountController = new AccountController();
+	private TransactionController transactionController = new TransactionController();
 
 	public void startConsole() {
 		dbView.printHeader();
@@ -125,9 +127,8 @@ public class ConsoleController {
 						String indexMessage = scanner.next();
 						if (indexMessage.equals("1") || indexMessage.equals("2")) {
 							int index = Integer.parseInt(indexMessage) - 1;
-							Account account = accountController
+							accountController
 									.createNewAccount(CreateNewAccountMenu.accountTypes[index], user.getId());
-							System.out.println(account);
 						}
 						break ;
 					case UserMenu.ACCOUNTS_LIST:
@@ -175,7 +176,7 @@ public class ConsoleController {
 		if (user == null)
 			return;
 		while (true) {
-			dbView.displayTitle("Account: " + account.getId() + " | " + account.getType());
+			dbView.displayTitle("Account: " + account.getId() + " | " + account.getType() +  " | Balance: " + account.getBalance());
 			dbView.displaySelections(AccountMenu.selections);
 			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
 			String message = scanner.next();
@@ -200,6 +201,7 @@ public class ConsoleController {
 									ansi().eraseScreen().fg(Color.GREEN).a("Enter Amount to Deposit: ").reset());						
 							double depositAmount = Double.parseDouble(scanner.next());
 							accountController.deposit(account, doubleToTwoDecimal(depositAmount));
+							transactionController.createNewTransaction(account.getId(), user.getId(), depositAmount, "Deposit");
 						} catch (NumberFormatException e) {
 							System.out.println(
 								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
@@ -213,20 +215,27 @@ public class ConsoleController {
 							System.out.println(
 									ansi().eraseScreen().fg(Color.GREEN).a("Enter AccountId to Transfer: ").reset());
 							int transferAccountId = Integer.parseInt(scanner.next());
-							accountController.transerFunds(account, doubleToTwoDecimal(transferAmount), transferAccountId);				
+							accountController.transerFunds(account, doubleToTwoDecimal(transferAmount), transferAccountId);
+							transactionController.createNewTransaction(account.getId(), user.getId(), 
+									transferAmount, "Transfer To Account: " + String.valueOf(transferAccountId));
 						} catch (NumberFormatException e) {
 							System.out.println(
 								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
 						}
 						break ;
 					case AccountMenu.TRANSACTIONS:
+						List<Transaction> transaction = transactionController.getTransactionByAccountId(account.getId());
+						List<Map<String, String>> transactionInfo = getTransactionInfo(transaction);
+						dbView.displayTitle("Transaction");
+						transactionInfo.forEach(dbView::diaplayTransactionTable);
 						break ;
 					case AccountMenu.WITHDRAW:
 						try {
 							System.out.println(
 									ansi().eraseScreen().fg(Color.GREEN).a("Enter Amount to Withdraw: ").reset());
 							double withdrawAmount = Double.parseDouble(scanner.next());
-							accountController.withdraw(account, doubleToTwoDecimal(withdrawAmount));							
+							accountController.withdraw(account, doubleToTwoDecimal(withdrawAmount));
+							transactionController.createNewTransaction(account.getId(), user.getId(), withdrawAmount, "Withdraw");
 						} catch (NumberFormatException e) {
 							System.out.println(
 								ansi().eraseScreen().fg(Color.RED).a("Enter amount as double").reset());
@@ -240,6 +249,18 @@ public class ConsoleController {
 				dbView.displayIllegalWarning();
 			}
 		}
+	}
+	
+	private List<Map<String, String>> getTransactionInfo(List<Transaction> tranactions) {
+		List<Map<String, String>> infos = new ArrayList<Map<String, String>>();
+		tranactions.forEach(t -> {
+			Map<String, String> info = new HashMap<>();
+			info.put("Type", t.getType());
+			info.put("Amount", String.valueOf(t.getAmount()));
+			info.put("Date", String.valueOf(t.getCreateDate()));
+			infos.add(info);
+		});
+		return infos;
 	}
 
 	/*
