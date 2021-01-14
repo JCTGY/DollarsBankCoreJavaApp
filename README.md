@@ -7,6 +7,7 @@
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/FileStructure.png" width=380>
 
 * [Objective](#objective)
+* [Prerequisites](#prerequisites)
 * [How to use](#how-to-use)
 * [Bonus](#bonus)
 
@@ -27,6 +28,10 @@ Objectives
   * b. Transactions (withdrawls /depsosits, etc.)
 - See sample screenshots (next page).
 - After 1 week attempt - sample code will be released
+## Prerequisites
+Java 11 \
+[Jansi 2.1.0 ](https://github.com/fusesource/jansi)
+[MySQL connector Java 8.0.22](https://dev.mysql.com/downloads/connector/j/8.0.html)
 
 ## How to use
 
