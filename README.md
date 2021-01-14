@@ -1,6 +1,6 @@
 # DollarsBankCoreJavaApp
 ![](images/MainMenu.png)
-![](images/LoginToAccount.png)
+![](images/LoginToAccount.png){:height="50%" width="50%"}
 ![](images/Actions.png)
 ![](images/Transactions.png)
 ![](images/LogoutExit.png)
@@ -22,8 +22,8 @@ Objectives ■
   * e. Display customer information
   * f. Sign out
 - Apply business logic to handle illegal operations in:
- * a. login system
- * b. Transactions (withdrawls /depsosits, etc.)
+  * a. login system
+  * b. Transactions (withdrawls /depsosits, etc.)
 - See sample screenshots (next page).
 - After 1 week attempt - sample code will be released
 
