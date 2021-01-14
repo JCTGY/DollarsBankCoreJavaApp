@@ -30,8 +30,8 @@ Objectives
 - After 1 week attempt - sample code will be released
 ## Prerequisites
 Java 11 \
-[Jansi 2.1.0 ](https://github.com/fusesource/jansi)
-[MySQL connector Java 8.0.22](https://dev.mysql.com/downloads/connector/j/8.0.html)
+[Jansi 2.1.0 ](https://github.com/fusesource/jansi) \
+[MySQL connector Java 8.0.22](https://dev.mysql.com/downloads/connector/j/8.0.html) \
 
 ## How to use
 
