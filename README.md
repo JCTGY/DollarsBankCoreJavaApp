@@ -1,7 +1,11 @@
 # DollarsBankCoreJavaApp
 ![](images/MainMenu.png)
+<div>
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/LoginToAccount.png" width=300>
-<br>
+ <div>
+  <p>login to user and select different accounts</p>
+ </div>
+ </div>
 <img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/Actions.png" width=300>
 <br>
 
