@@ -149,9 +149,9 @@ public class ConsoleController {
 	 */
 	private void accountSelctionInterface() {
 		User user = userController.getCurrentUser();
-		if (user == null)
-			return;
 		while (true) {
+			if (!userController.isLogin())
+				break;
 			List<Account> accounts = accountController.getAccountsByUserId(user.getId());
 			dbView.displayAccounstList(accounts);
 			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
@@ -173,9 +173,9 @@ public class ConsoleController {
 	 */
 	private void accountMenuInterface(Account account) {
 		User user = userController.getCurrentUser();
-		if (user == null)
-			return;
 		while (true) {
+			if (!userController.isLogin())
+				break;
 			dbView.displayTitle("Account: " + account.getId() + " | " + account.getType() +  " | Balance: " + account.getBalance());
 			dbView.displaySelections(AccountMenu.selections);
 			System.out.println(ansi().eraseScreen().fg(Color.WHITE).a(MainMenu.BACK_SLECTION).reset());
