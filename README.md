@@ -43,7 +43,7 @@ import project to Eclipse
 run the program
 ```
 Connect MySQL to the connector using the [config.properties](resources/config.properties) \
-Run [SQL starter](resources/DollardsBankStart.sql) to create the tables
+Run [SQL starter](resources/DollardsBankStart.sql) to create the initial tables
 
 ## Bonus
 - Use JDBC and DAO to connect user info to a MySQL database
