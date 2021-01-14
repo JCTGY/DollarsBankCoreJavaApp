@@ -37,5 +37,5 @@ run the program
 ```
 
 ## Bonus
-- Use JDBC and DAO to connect user info to a database
-- Mutiple accounts in one user 
+- Use JDBC and DAO to connect user info to a MySQL database
+- Manage mutiple accounts in one user
