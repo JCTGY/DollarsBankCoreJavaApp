@@ -15,12 +15,12 @@ Objectives ■
 - Create a user login system (no DB necessary, use in program memory).
 - Once logged in, have a user menu display in console.
 - Allow user to make:
- * a. Deposit
- * b. Withdrawl
- * c. Funds Transfer
- * d. 5 recent transaction history
- * e. Display customer information
- * f. Sign out
+  * a. Deposit
+  * b. Withdrawl
+  * c. Funds Transfer
+  * d. 5 recent transaction history
+  * e. Display customer information
+  * f. Sign out
 - Apply business logic to handle illegal operations in:
  * a. login system
  * b. Transactions (withdrawls /depsosits, etc.)
