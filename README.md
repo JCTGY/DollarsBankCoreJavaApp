@@ -1,9 +1,9 @@
 # DollarsBankCoreJavaApp
 ![](images/MainMenu.png)
-<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/LoginToAccount.png" width=300 align=right>
-![](images/Actions.png)
-![](images/Transactions.png)
-![](images/LogoutExit.png)
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/LoginToAccount.png" width=300>
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/Actions.png" width=300>
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/Transactions.png" width=300>
+<img src="https://github.com/JCTGY/DollarsBankCoreJavaApp/raw/main/images/LogoutExit.png" width=300>
 
 * [Objective](#objective)
 * [How to use](#how-to-use)
